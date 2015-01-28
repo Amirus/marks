@@ -1,0 +1,7 @@
+{
+  "SESSION_SECRET": "keyboard cat",
+  "AUTHORIZED_DOMAIN": "gmail.com",
+  "ROOT_URL": "http://localhost:8080",
+  "GOOGLE_CLIENT_ID": "",
+  "GOOGLE_CLIENT_SECRET": ""
+}

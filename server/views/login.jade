@@ -1,0 +1,12 @@
+extends _layout
+
+block body
+  .container.login-page
+    .jumbotron
+      header
+        h1 Marks
+      p You personnal notebook/brain dump/documentation!
+      p
+        a.btn.btn-primary.btn-lg(href='/auth/google')
+          i.fa.fa-sign-in
+          = ' Sign in with Google'
