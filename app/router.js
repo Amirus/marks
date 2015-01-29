@@ -1,10 +1,9 @@
 'use strict';
 var React  = require('react');
 
-var IndexPage    = require('./pages/index');
-var NotFoundPage = require('./pages/not-found');
-
-var Router = function() {};
+var Router = function(routeHandler) {
+  this.routeHandler = routeHandler;
+};
 
 Router.prototype.start = function() {
   var initialUrl = window.location.hash;
@@ -16,11 +15,10 @@ Router.prototype.navigate = function(newUrl) {
   if (window.location.hash !== ('#' + url)) window.location.hash = '#' + url;
   this.currentUrl = url;
 
-  // Route to the right place (i know those are static, this is not a framework)
-  if (url === '/') {
-    this.switchTo(<IndexPage />);
+  if (this.routeHandler) {
+    this.routeHandler.call(this, url);
   } else {
-    this.switchTo(<NotFoundPage />);
+    console.error('No route handler setup!');
   }
 };
 
@@ -42,12 +40,19 @@ Router.prototype.getCurrentPage = function() {
   return this.currentPage;
 };
 
-Router.start = function() {
-  window.router = new Router();
+Router.start = function(routeHandler) {
+  window.router = new Router(routeHandler);
   window.router.start();
-  window.addEventListener('hashchange', function(event) {
+
+  var handle = function(event) {
     window.router.navigate(window.location.hash);
-  }, false);
+  };
+
+  if (window.addEventListener) {
+    window.addEventListener('hashchange', handle, false);
+  } else {
+    window.attachEvent('onhashchange', handle);
+  }
 };
 
 module.exports = Router;
