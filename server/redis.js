@@ -12,4 +12,9 @@ if (redis_url.auth) {
   client.auth(redis_url.auth.split(':')[1]);
 }
 
+client.on('error', function(err) {
+  console.error(err);
+  process.exit(1);
+});
+
 module.exports = client;

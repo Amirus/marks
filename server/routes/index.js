@@ -15,6 +15,14 @@ router.get('/', function(req, res) {
       }
     });
   } else {
+    res.redirect('/login');
+  }
+});
+
+router.get('/login', function(req, res) {
+  if (req.user) {
+    res.redirect('/');
+  } else {
     res.render('login');
   }
 });
@@ -30,7 +38,7 @@ router.get('/unauthorized', function(req, res) {
 // All other routes require auth
 router.use(function(req, res, next) {
   if (!req.user) {
-    return res.render('unauthorized');
+    return res.redirect('/unauthorized');
   }
   next();
 });
