@@ -1,11 +1,11 @@
 var express = require('express');
 
+var auth      = require('../lib/auth');
+var apiRoutes = require('./api');
+
 var router = express.Router();
 
-var authRoutes = require('./auth');
-var apiRoutes  = require('./api');
-
-router.use('/auth', authRoutes);
+router.use('/', auth.router());
 
 router.get('/', function(req, res) {
   if (req.user) {
@@ -19,29 +19,8 @@ router.get('/', function(req, res) {
   }
 });
 
-router.get('/login', function(req, res) {
-  if (req.user) {
-    res.redirect('/');
-  } else {
-    res.render('login');
-  }
-});
-
-router.get('/unauthorized', function(req, res) {
-  if (req.user) {
-    res.redirect('/');
-  } else {
-    res.render('unauthorized');
-  }
-});
-
 // All other routes require auth
-router.use(function(req, res, next) {
-  if (!req.user) {
-    return res.redirect('/unauthorized');
-  }
-  next();
-});
+router.use(auth.authMiddleware);
 
 router.use('/api', apiRoutes);
 

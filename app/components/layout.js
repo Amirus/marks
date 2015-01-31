@@ -14,7 +14,7 @@ var Layout = React.createClass({
               <a>
                 {CONFIG.user_email}
               </a>
-              <a href="/auth/logout">Logout</a>
+              <a href="/logout">Logout</a>
             </nav>
           </section>
           <nav className="header-navigation">

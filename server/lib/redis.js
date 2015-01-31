@@ -1,3 +1,4 @@
+'use strict';
 var url   = require('url');
 var redis = require('redis');
 
