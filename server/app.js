@@ -24,5 +24,8 @@ app.use(bodyParser.json());
 // Routes
 app.use(require('./routes'));
 
+// Error handling
+require('./lib/errors-handler').init(app);
+
 console.log('listening on port ' + port);
 app.listen(port, host);

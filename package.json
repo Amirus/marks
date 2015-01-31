@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./server/app.js",
     "test": "./node_modules/jest/bin/jest.js",
-    "deploy": "./node_modules/gulp/bin/gulp.js build"
+    "deploy": "./node_modules/gulp/bin/gulp.js build",
+    "dev": "./node_modules/gulp/bin/gulp.js dev"
   },
   "repository": {
     "type": "git",
@@ -38,8 +39,10 @@
     "react": "^0.13.0-beta.1",
     "reactify": "^1.0.0",
     "redis": "^0.12.1",
+    "rethinkdb": "^1.16.0",
     "superagent": "^0.21.0",
     "url": "^0.10.2",
+    "uuid": "^2.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.0.0"
   }

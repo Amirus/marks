@@ -22,6 +22,6 @@ router.get('/', function(req, res) {
 // All other routes require auth
 router.use(auth.authMiddleware);
 
-router.use('/api', apiRoutes);
+router.use('/api/v1', apiRoutes);
 
 module.exports = router;
