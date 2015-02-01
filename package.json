@@ -43,7 +43,6 @@
     "rethinkdb": "^1.16.0",
     "superagent": "^0.21.0",
     "url": "^0.10.2",
-    "uuid": "^2.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.0.0"
   }

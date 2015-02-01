@@ -6,7 +6,14 @@ var NotebooksSidebar = React.createClass({
   render: function() {
     return <aside className="sidebar">
       <h1 className="page-header">Notebooks</h1>
-      {R.map(function(n) { return <p key={n.id}>{n.name}</p>; }, this.props.notebooks)}
+      <div className="notebook-links">
+        {R.map(function(n) { return (
+
+            <a key={n.id} onClick={this.props.onNotebookSelect(n.id)}>{n.name}</a>
+
+        ); }.bind(this), this.props.notebooks)}
+      </div>
+      <a className="add-notebook" onClick={this.props.onNotebookAdd}>&#x271a; New notebook</a>
     </aside>;
   }
 });

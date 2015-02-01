@@ -10,8 +10,16 @@ var NotebooksSidebar = require('../components/notebooks-sidebar');
 var IndexPage = React.createClass({
   getInitialState: R.always({notebooks: null}),
   componentDidMount: function() {
-    this.unsubscribe = NotebooksStore.listen(function(notebooks) {
-      this.setState({notebooks: notebooks});
+    this.unsubscribe = NotebooksStore.listen(function(action, error, data) {
+      if (error) return alert(error.message);
+      switch (action) {
+        case 'all':
+          this.setState({notebooks: data});
+          break;
+        case 'created':
+          window.router.navigate('/notebooks/' + id);
+          break;
+      }
     }, this);
 
     // Trigger notebooks load
@@ -21,8 +29,18 @@ var IndexPage = React.createClass({
     this.unsubscribe();
   },
 
-  handleNotebookSelect: function() {
-    
+  handleNotebookSelect: R.curry(function(id, event) {
+    window.router.navigate('/notebooks/' + id);
+  }),
+
+  handleNotebookAdd: function() {
+    var nbName = window.prompt('Type the new notebook\'s name:', 'Travel notes');
+
+    if (nbName !== null && nbName !== '') {
+      Actions.createNotebook(nbName);
+    } else if (nbName === '') {
+      alert('You can\'t create a notebook without a name!');
+    } // else do nothing user cancelled
   },
 
   render: function() {
@@ -31,7 +49,11 @@ var IndexPage = React.createClass({
     }
     return (
       <Layout>
-        <NotebooksSidebar notebooks={this.state.notebooks} onNotebookSelect={this.handleNotebookSelect} />
+        <NotebooksSidebar
+          notebooks={this.state.notebooks}
+          onNotebookSelect={this.handleNotebookSelect}
+          onNotebookAdd={this.handleNotebookAdd}
+        />
         <section className="page-contents">
           <h1 className="page-header">Notes</h1>
         </section>

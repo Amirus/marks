@@ -1,23 +1,30 @@
-var R       = require('ramda');
-var uuid    = require('uuid');
+var r       = require('rethinkdb');
 var express = require('express');
 
 var router = express.Router();
 
-function dummyNotebook() {
-  return {
-    id: uuid.v4(),
-    name: 'Notebook ' + Math.round(Math.random()*100)
-  };
-}
+router.get('/notebooks', function(req, res, next) {
+  var c = req.rdbConnection;
+  var total = 0;
+  var limit = parseInt(req.query.limit);
+  var offset = parseInt(req.query.offset);
 
-router.get('/notebooks', function(req, res) {
-  res.json({
-    items: R.times(dummyNotebook, 4),
-    limt: 20,
-    offset: 0,
-    total: 4
-  });
+  r.table('notebooks').count().run(c).then(function(result) {
+    total = result;
+  }).then(function() {
+    return r.table('notebooks')
+      .oderBy('name').limit(limit)
+      .skip(offset).run(c);
+  }).then(function(cursor) {
+    return cursor.toArray();
+  }).then(function(results) {
+    res.json({
+      items: results,
+      limit: limit,
+      offset: offset,
+      total: total
+    });
+  }).error(next);
 });
 
 module.exports = router;

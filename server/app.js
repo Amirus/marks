@@ -34,7 +34,7 @@ require('./lib/errors-handler').init(app);
 // Open DB connection and make sure tables and indexes exist
 rethinkdb.init([{
   name: 'notebooks',
-  indexes: ['name']
+  indexes: ['name', 'owner']
 }, {
   name: 'notes',
   indexes: ['name']
