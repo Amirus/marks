@@ -32,7 +32,9 @@ var IndexPage = React.createClass({
     return (
       <Layout>
         <NotebooksSidebar notebooks={this.state.notebooks} onNotebookSelect={this.handleNotebookSelect} />
-        <p>Select a notebook...</p>
+        <section className="page-contents">
+          <h1 className="page-header">Notes</h1>
+        </section>
       </Layout>
     );
   }

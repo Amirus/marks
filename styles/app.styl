@@ -4,16 +4,17 @@ blue1 = #19b394
 blue2 = #235e52
 normal-box-shadow = 0 2px 5px rgba(0,0,0,0.26)
 
-@import "login"
-
 @import "mixins"
+@import "login"
 @import "meta"
 @import "table"
 @import "header"
+@import "sidebar"
 @import "footer"
 
 section.content
   container()
+  display flex
   margin-bottom 30px
   padding 30px
   background #fff
@@ -29,8 +30,12 @@ section.content
       display inline-block
       margin-left 15px
 
+section.container .page-contents
+  flex 1 1
+
 section.content h1.page-header
-  font-size 36px
+  font-size 32px
+  margin 0 0 15px
 
 section.content h2.page-subheader
   margin-top 45px

@@ -4,9 +4,10 @@ var React  = require('react');
 
 var NotebooksSidebar = React.createClass({
   render: function() {
-    return <div>
+    return <aside className="sidebar">
+      <h1 className="page-header">Notebooks</h1>
       {R.map(function(n) { return <p key={n.id}>{n.name}</p>; }, this.props.notebooks)}
-    </div>;
+    </aside>;
   }
 });
 
