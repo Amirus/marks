@@ -1,7 +1,7 @@
 'use strict';
 var React  = require('react'); // for that compiled jsx
 
-var Router       = require('./router');
+var Router       = require('./lib/router');
 var IndexPage    = require('./pages/index');
 var NotFoundPage = require('./pages/not-found');
 
