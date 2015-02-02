@@ -52,3 +52,9 @@ An before that you should have started the two _stores_ in separate terminals
 redis-server
 rethinkdb --http-port 9999
 ```
+
+## Look and feel
+
+Still WIP but gives an idea...
+
+![Screenshot](https://raw.githubusercontent.com/kiasaki/marks/master/screenshot.png)
