@@ -1,14 +1,14 @@
 'use strict';
 var React  = require('react');
 
-var Layout = require('../components/layout');
+var LayoutWithSidebar = require('../components/layout-with-sidebar');
 
 var IndexPage = React.createClass({
   render: function() {
     return (
-      <Layout>
+      <LayoutWithSidebar>
         <h1 className="page-header">Notes</h1>
-      </Layout>
+      </LayoutWithSidebar>
     );
   }
 });
