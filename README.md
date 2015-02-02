@@ -13,19 +13,30 @@ It's simple and it works, feel free to clone and deploy on _Heroku_.
 
 This app uses a **Node.js** backend, a vanilia javascript frontend using **React**.
 
-Your notes/thoughts/documentation is secured using google Oauth limiting access
-to a single TLD, in 2 or 3 line you could limit it to one specific _@gmail.com_
-or _@outlook.com_ address if you wish.
+Your notes/thoughts/documentation is secured using Google OAuth limiting access
+to a single TLD (i.e. _@gmail.com_, _@outlook.com_), this is useful in orgs, but
+hey, by deleting one line you can allow anyone in.
+
+For now this app is built with multitenancy in mind but with no sharing feature
+at all, in the future there will be a config option to enable or disable
+multitenancy, that way, you can use **Marks** as a company wide wiki or as a
+personal notes app.
 
 Main libraries used:
 
-- Express
-- React
-- Browserify
-- Passport
-- Lodash
-- Moment
-- Superagent
+- On the backend:
+  - Express
+  - Passport
+  - Redis (session store)
+  - RethinkDB (data store)
+- On the frontend:
+  - React
+  - Browserify
+  - Stylus
+  - Ramda
+  - Moment
+  - Superagent
+  - Custom build flux based on Reflux
 
 ## Getting started
 
@@ -33,4 +44,11 @@ Main libraries used:
 npm install -g gulp
 npm install
 gulp dev
+```
+
+An before that you should have started the two _stores_ in separate terminals
+
+```bash
+redis-server
+rethinkdb --http-port 9999
 ```
