@@ -70,7 +70,7 @@ internals.createStore = function(definition) {
     store.on(eventLabel, eventHandler);
 
     return function() {
-      action.off(eventLabel, eventHandler);
+      store.off(eventLabel, eventHandler);
     };
   };
 

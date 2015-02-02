@@ -13,6 +13,7 @@ var NotebooksStore = Reflux.createStore({
   init: function() {
     this.notebooks = [];
     this.listenTo(Actions.loadNotebooks, this.fetchNotebooks);
+    this.listenTo(Actions.loadNotebook, this.fetchNotebook);
     this.listenTo(Actions.createNotebook, this.createNotebook);
   },
 
@@ -41,10 +42,16 @@ var NotebooksStore = Reflux.createStore({
 
   fetchNotebook: function(id) {
     var notebook = R.find(R.propEq('id', id), this.notebooks);
-    if (notebook !== null) {
+    if (notebook) {
       this.trigger('one', null, notebook);
     } else {
-      console.log('cant find notebook ' + id + ' locally. need api call');
+      request.apiGet('/api/v1/notebooks/' + id)
+        .end(function(error, res) {
+          if (error) return this.trigger('one', error);
+
+          this.append([res.body]);
+          this.trigger('one', null, res.body);
+        }.bind(this));
     }
   },
 
