@@ -5,5 +5,11 @@ var Reflux = require('./lib/reflux');
 module.exports = {
   loadNotebooks:  Reflux.createAction(),
   loadNotebook:   Reflux.createAction(),
-  createNotebook: Reflux.createAction()
+  createNotebook: Reflux.createAction(),
+  deleteNotebook: Reflux.createAction(),
+
+  loadNotes:      Reflux.createAction(),
+  loadNote:       Reflux.createAction(),
+  createNote:     Reflux.createAction(),
+  deleteNote:     Reflux.createAction()
 };

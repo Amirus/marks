@@ -5,6 +5,7 @@ var React  = require('react');
 var Actions           = require('../actions');
 var NotebooksStore    = require('../stores/notebooks');
 var LayoutWithSidebar = require('../components/layout-with-sidebar');
+var NoteList          = require('../components/note-list');
 
 var NotebookPage = React.createClass({
   getInitialState: R.always({notebook: null}),
@@ -31,9 +32,8 @@ var NotebookPage = React.createClass({
 
     return (
       <LayoutWithSidebar>
-        {notebook ? (
-          <h1 className="page-title">{notebook.name}</h1>
-        ) : <div>Loading...</div>}
+        <h1 className="page-title">{notebook ? notebook.name : 'Loading...'}</h1>
+        <NoteList notebook_id={this.props.id} />
       </LayoutWithSidebar>
     );
   }
