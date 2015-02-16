@@ -1,9 +1,0 @@
-extends _layout
-
-block body
-  div(id="app-root")
-    div(class="loading-placeholder") Loading ...
-
-  script.
-    var CONFIG = !{JSON.stringify(config)};
-  script(src="/app.js")
