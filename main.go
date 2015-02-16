@@ -2,12 +2,14 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/kiasaki/batbelt/http/middlewares"
 	"github.com/kiasaki/batbelt/http/mm"
+	"github.com/kiasaki/batbelt/mst"
 
 	"github.com/kiasaki/marks/data"
 )
@@ -51,6 +53,20 @@ func registerHandlers() {
 
 func routeRequest(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/" {
-
+		rows, err := db.Query("SELECT id FROM notes")
+		mst.MustNotErr(err)
+		defer rows.Close()
+		for rows.Next() {
+			var note struct {
+				Id string
+			}
+			if err := rows.Scan(&note.Id); err != nil {
+				log.Fatal(err)
+			}
+			fmt.Printf("%s is it's id\n", note.Id)
+		}
+		if err := rows.Err(); err != nil {
+			log.Fatal(err)
+		}
 	}
 }
