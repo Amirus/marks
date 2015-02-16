@@ -2,9 +2,11 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"html/template"
 
 	"github.com/kiasaki/batbelt/mst"
+	"github.com/russross/blackfriday"
 )
 
 const layoutContents = `
@@ -19,6 +21,7 @@ const layoutContents = `
 	<nav>
 	  <header>
 		<h1>Marks</h1>
+		<a href="/new">New note</a>
 	  </header>
 	  <ul>
 		{{range .Notes}}
@@ -57,7 +60,7 @@ const newContents = `
   <button type="submit" class="btn btn-save">Save</button>
 {{end}}
 {{define "contents"}}
-  <textarea id="noteBody" name="body" placeholder="Write you markdown here..."></textarea>
+  <textarea id="noteBody" name="body" placeholder="Write you markdown here...">{{.Body}}</textarea>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.12.0/codemirror.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.12.0/theme/solarized.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.12.0/codemirror.min.js"></script>
@@ -75,22 +78,56 @@ const newContents = `
 {{end}}
 `
 
+const viewContents = `
+{{define "buttons"}}
+  <a href="/n/{{.Id}}/delete" class="btn btn-delete" id="deleteBtn">Delete</a>
+  <a href="/n/{{.Id}}/edit" class="btn btn-edit">Edit</a>
+{{end}}
+{{define "contents"}}
+  <div class="body">
+	%s
+  </div>
+  <script>
+	deleteBtn.onclick = function(e) {
+	  (!confirm('Sure?')) && e.preventDefault();
+	};
+  </script>
+{{end}}
+`
+
 var newPageTempate *template.Template
 
 func init() {
 	var err error
-	var t *template.Template
-	t, err = template.New("page").Parse(layoutContents)
-	mst.MustNotErr(err)
-	newPageTempate, err = t.Parse(newContents)
+	newPageTempate, err = loadLayoutTemplate().Parse(newContents)
 	mst.MustNotErr(err)
 }
 
-func RenderNewPage(p Page) ([]byte, error) {
+func loadLayoutTemplate() *template.Template {
+	t, err := template.New("page").Parse(layoutContents)
+	mst.MustNotErr(err)
+	return t
+}
+
+func executeTemplate(t *template.Template, p Page) ([]byte, error) {
 	var out bytes.Buffer
-	err := newPageTempate.ExecuteTemplate(&out, "layout", p)
+	err := t.ExecuteTemplate(&out, "layout", p)
 	if err != nil {
 		return []byte{}, err
 	}
 	return out.Bytes(), nil
+}
+
+func RenderNewPage(p Page) ([]byte, error) {
+	return executeTemplate(newPageTempate, p)
+}
+
+func RenderViewPage(p Page) ([]byte, error) {
+	t := loadLayoutTemplate()
+	body := string(blackfriday.MarkdownCommon([]byte(p.Body)))
+	t, err := t.Parse(fmt.Sprintf(viewContents, body))
+	if err != nil {
+		return []byte{}, err
+	}
+	return executeTemplate(t, p)
 }

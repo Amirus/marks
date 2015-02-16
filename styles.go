@@ -19,6 +19,10 @@ html, body {
   box-sizing: border-box;
 }
 
+img {
+  max-width: 100%;
+}
+
 .btn {
   line-height: 20px;
   padding: 10px 15px;
@@ -27,6 +31,13 @@ html, body {
   color: #fff;
   font-weight: bold;
   letter-spacing: 1px;
+  cursor: pointer;
+}
+a.btn {
+  text-decoration: none;
+}
+.btn.btn-delete {
+  background: #dc322f;
 }
 
 a {
@@ -49,6 +60,11 @@ nav header h1 {
   margin: 0;
   color: #222;
   font-size: 32px;
+}
+nav header a {
+  position: absolute;
+  top: 15px; right: 15px;
+  line-height: 40px;
 }
 nav ul {
   padding: 15px 0;
@@ -85,6 +101,7 @@ section {
   top: 0; bottom: 0; left: 270px;
   width: 800px;
   background: #002b36;
+  overflow: auto;
 }
 section header {
   background: #073642;
@@ -123,5 +140,18 @@ section .contents textarea {
 }
 section .contents .CodeMirror {
   height: calc(100vh - 70px);
+}
+section .contents .body {
+  padding: 15px;
+  color: #fff;
+}
+section .contents .body h1,
+section .contents .body h2,
+section .contents .body h3,
+section .contents .body h4,
+section .contents .body h5,
+section .contents .body h6 {
+  background: #073642;
+  padding: 6px;
 }
 `

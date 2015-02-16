@@ -69,18 +69,42 @@ func routeRequest(w http.ResponseWriter, r *http.Request) {
 		} else {
 			title, body := r.FormValue("title"), r.FormValue("body")
 			if savedNote, err := data.CreateNote(DB(), title, body); err != nil {
-				http.Redirect(w, r, "/n"+savedNote.Id, 302)
-			} else {
-				contents, err := RenderNewPage(Page{
+				contents, rerr := RenderNewPage(Page{
 					Notes:       data.MustGetAllNotes(DB()),
 					Title:       title,
-					Body:        body,
+					Body:        err.Error() + "\n\n" + body,
 					PostbackURL: "/new",
 				})
-				mst.MustNotErr(err)
+				mst.MustNotErr(rerr)
 				w.WriteHeader(400)
 				w.Write(contents)
+			} else {
+				http.Redirect(w, r, "/n/"+savedNote.Id, 302)
 			}
 		}
+	} else if r.URL.Path[:3] == "/n/" {
+		noteId := r.URL.Path[3:]
+		note, err := data.GetNote(DB(), noteId)
+		if err == sql.ErrNoRows {
+			w.WriteHeader(404)
+			w.Write([]byte("404 - Page not found"))
+		} else if err != nil {
+			w.WriteHeader(500)
+			w.Write([]byte("500 - Error fetching note"))
+			log.Fatal(err)
+		} else {
+			contents, err := RenderViewPage(Page{
+				Notes:       data.MustGetAllNotes(DB()),
+				Id:          note.Id,
+				Title:       note.Title,
+				Body:        note.Body,
+				PostbackURL: "/n/" + note.Id,
+			})
+			mst.MustNotErr(err)
+			w.Write(contents)
+		}
+	} else {
+		w.WriteHeader(404)
+		w.Write([]byte("404 - Page not found"))
 	}
 }
