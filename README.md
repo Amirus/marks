@@ -11,46 +11,36 @@ It's simple and it works, feel free to clone and deploy on _Heroku_.
 
 ## Technologies
 
-This app uses a **Node.js** backend, a vanilia javascript frontend using **React**.
+This app is the most simple and vanilla Goland app, no fancy framework, libs
+as needed, and snippets copied over when small.
 
-Your notes/thoughts/documentation is secured using Google OAuth limiting access
-to a single TLD (i.e. _@gmail.com_, _@outlook.com_), this is useful in orgs, but
-hey, by deleting one line you can allow anyone in.
+Your notes/thoughts/documentation is secured using super advanced Basic Auth.
+Although you could chose to simply let your darkest secret open to the public,
+by not setting a user and password, it's a choice you have...
 
-For now this app is built with multitenancy in mind but with no sharing feature
-at all, in the future there will be a config option to enable or disable
-multitenancy, that way, you can use **Marks** as a company wide wiki or as a
-personal notes app.
+Main packages used:
 
-Main libraries used:
-
-- On the backend:
-  - Express
-  - Passport
-  - Redis (session store)
-  - RethinkDB (data store)
-- On the frontend:
-  - React
-  - Browserify
-  - Stylus
-  - Ramda
-  - Moment
-  - Superagent
-  - Custom build flux based on Reflux
+- `database/sql` as way to store notes and retrive them
+- `github.com/lib/pq` driver for postgresql
+- `html/template` for rendering pages
+- `net/http` for all http server needs
+- `flag` for configuration
+- `github.com/kiasaki/batbelt`
 
 ## Getting started
 
 ```bash
-npm install -g gulp
-npm install
-gulp dev
+go get github.com/kiasaki/marks
+cd $GOPATH/src/github.com/kiasaki/marks
+go run *.go -postgre...
 ```
 
-An before that you should have started the two _stores_ in separate terminals
+An before that you should have started postgresql and ran the `db.sql` file
+on the database you wish to use so you have the necessaty tables created.
 
 ```bash
-redis-server
-rethinkdb --http-port 9999
+postgres&
+psql marks -f db.sql
 ```
 
 ## Look and feel
