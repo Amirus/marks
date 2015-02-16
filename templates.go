@@ -29,7 +29,7 @@ const layoutContents = `
 	  </ul>
 	  <footer>
 		<a href="http://github.com/kiasaki/marks">Marks</a>
-		is open source sorftware by
+		is open source software by
 		<a href="http://github.com/kiasaki">kiasaki</a>
 	  </footer>
 	</nav>
@@ -57,7 +57,21 @@ const newContents = `
   <button type="submit" class="btn btn-save">Save</button>
 {{end}}
 {{define "contents"}}
-  <textarea name="body" placeholder="Write you markdown here..."></textarea>
+  <textarea id="noteBody" name="body" placeholder="Write you markdown here..."></textarea>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.12.0/codemirror.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.12.0/theme/solarized.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.12.0/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.12.0/mode/markdown/markdown.min.js"></script>
+  <script>
+    var editor = CodeMirror.fromTextArea(noteBody, {
+	  lineNumbers: true,
+	  lineWrapping: true,
+	  autofocus: true,
+	  viewportMargin: Infinity,
+	  mode: 'markdown',
+	  theme: 'solarized dark'
+	});
+  </script>
 {{end}}
 `
 
