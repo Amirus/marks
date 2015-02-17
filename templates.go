@@ -74,6 +74,12 @@ const newContents = `
 	  mode: 'markdown',
 	  theme: 'solarized dark'
 	});
+	var input = document.querySelector('input.title')
+	input.onfocus = function() {
+	  if (input.value === "New note") {
+		input.value = "";
+	  }
+	};
   </script>
 {{end}}
 `
