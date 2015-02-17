@@ -18,6 +18,7 @@ const insertSql = "INSERT INTO notes (id, title, body, updated) VALUES ($1,$2,$3
 const selectAllSql = "SELECT id, title, updated FROM notes ORDER BY title"
 const selectByIdSql = "SELECT id, title, body, updated FROM notes WHERE id = $1 LIMIT 1"
 const deleteSql = "DELETE FROM notes WHERE id = $1"
+const updateSql = "UPDATE notes SET title = $2, body = $3, updated = $4 WHERE id = $1"
 
 func CreateNote(db *sql.DB, title string, body string) (Note, error) {
 	note := Note{NewUUID().String(), title, body, time.Now().Unix()}
@@ -59,4 +60,10 @@ func GetNote(db *sql.DB, id string) (Note, error) {
 func DeleteNote(db *sql.DB, id string) error {
 	_, err := db.Exec(deleteSql, id)
 	return err
+}
+
+func UpdateNote(db *sql.DB, note Note) (Note, error) {
+	note.Updated = time.Now().Unix()
+	_, err := db.Exec(updateSql, note.Id, note.Title, note.Body, time.Now().Unix())
+	return note, err
 }

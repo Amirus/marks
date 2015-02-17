@@ -80,9 +80,40 @@ func handleDeletePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleEditPage(w http.ResponseWriter, r *http.Request) {
-	noteId := r.URL.Path[3 : len(r.URL.Path)-7]
+	noteId := r.URL.Path[3 : len(r.URL.Path)-5]
+	note, err := data.GetNote(DB(), noteId)
+	if err == sql.ErrNoRows {
+		w.WriteHeader(404)
+		w.Write([]byte("404 - Page not found"))
+	} else if err != nil {
+		w.WriteHeader(500)
+		w.Write([]byte("500 - Error fetching note"))
+		log.Fatal(err)
+	} else {
+		contents, err := RenderEditPage(Page{
+			Notes:       data.MustGetAllNotes(DB()),
+			Id:          note.Id,
+			Title:       note.Title,
+			Body:        note.Body,
+			PostbackURL: "/n/" + note.Id + "/edit",
+		})
+		mst.MustNotErr(err)
+		w.Write(contents)
+	}
 }
 
 func handleEditPagePost(w http.ResponseWriter, r *http.Request) {
-
+	noteId := r.URL.Path[3 : len(r.URL.Path)-5]
+	note := data.Note{
+		Id:    noteId,
+		Title: r.FormValue("title"),
+		Body:  r.FormValue("body"),
+	}
+	_, err := data.UpdateNote(DB(), note)
+	if err != nil {
+		w.WriteHeader(500)
+		w.Write([]byte("500 - Error: " + err.Error()))
+	} else {
+		http.Redirect(w, r, "/n/"+noteId, 302)
+	}
 }

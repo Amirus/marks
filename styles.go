@@ -32,12 +32,19 @@ img {
   font-weight: bold;
   letter-spacing: 1px;
   cursor: pointer;
+  display: inline-block;
 }
 a.btn {
   text-decoration: none;
 }
+buttons.btn {
+  font-family: 'Courier New', sans-serif;
+}
 .btn.btn-delete {
   background: #dc322f;
+}
+.btn.btn-default {
+  background: #555;
 }
 
 a {
@@ -118,7 +125,7 @@ section header input {
   border: none;
   line-height: 22px;
   font-size: 22px;
-  color: #657b83;
+  color: #fff;
   border-bottom: 2px dashed #657b83;
   font-family: 'Courier New', sans-serif;
 }

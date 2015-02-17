@@ -55,11 +55,7 @@ const layoutContents = `
 {{end}}
 `
 
-const newContents = `
-{{define "buttons"}}
-  <button type="submit" class="btn btn-save">Save</button>
-{{end}}
-{{define "contents"}}
+const editorContents = `
   <textarea id="noteBody" name="body" placeholder="Write you markdown here...">{{.Body}}</textarea>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.12.0/codemirror.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.12.0/theme/solarized.min.css" rel="stylesheet" />
@@ -81,6 +77,14 @@ const newContents = `
 	  }
 	};
   </script>
+`
+
+const newContents = `
+{{define "buttons"}}
+  <button type="submit" class="btn btn-save">Save</button>
+{{end}}
+{{define "contents"}}
+` + editorContents + `
 {{end}}
 `
 
@@ -101,11 +105,24 @@ const viewContents = `
 {{end}}
 `
 
+const editContents = `
+{{define "buttons"}}
+  <a href="/n/{{.Id}}" class="btn btn-default">Cancel</a>
+  <button type="submit" class="btn btn-save">Save</button>
+{{end}}
+{{define "contents"}}
+` + editorContents + `
+{{end}}
+`
+
 var newPageTempate *template.Template
+var editPageTempate *template.Template
 
 func init() {
 	var err error
 	newPageTempate, err = loadLayoutTemplate().Parse(newContents)
+	mst.MustNotErr(err)
+	editPageTempate, err = loadLayoutTemplate().Parse(editContents)
 	mst.MustNotErr(err)
 }
 
@@ -136,4 +153,8 @@ func RenderViewPage(p Page) ([]byte, error) {
 		return []byte{}, err
 	}
 	return executeTemplate(t, p)
+}
+
+func RenderEditPage(p Page) ([]byte, error) {
+	return executeTemplate(editPageTempate, p)
 }
