@@ -27,7 +27,12 @@ func DB() *sql.DB {
 func main() {
 	SetCfg(ParseFlag())
 	SetDB(data.Connect(Cfg().PostgresURL))
-	handleHTTP()
+
+	if Cfg().CreateDb {
+		createDb()
+	} else {
+		handleHTTP()
+	}
 }
 
 func handleHTTP() {
