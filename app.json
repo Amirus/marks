@@ -12,11 +12,13 @@
     "BUILDPACK_URL": "https://github.com/kr/heroku-buildpack-go.git",
     "AUTH_USER": {
       "description": "The basic auth username to protect your notes (optionnal)",
-      "value": ""
+      "value": "",
+      "required": false
     },
     "AUTH_PASS": {
       "description": "The basic auth password to protect your notes (optionnal)",
-      "value": ""
+      "value": "",
+      "required": false
     }
   },
   "addons": ["heroku-postgresql"]
