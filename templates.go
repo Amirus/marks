@@ -58,7 +58,6 @@ const layoutContents = `
 const editorContents = `
   <textarea id="noteBody" name="body" placeholder="Write you markdown here...">{{.Body}}</textarea>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.12.0/codemirror.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.12.0/theme/solarized.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.12.0/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.12.0/mode/markdown/markdown.min.js"></script>
   <script>
@@ -68,7 +67,6 @@ const editorContents = `
 	  autofocus: true,
 	  viewportMargin: Infinity,
 	  mode: 'markdown',
-	  theme: 'solarized dark'
 	});
 	var input = document.querySelector('input.title')
 	input.onfocus = function() {
