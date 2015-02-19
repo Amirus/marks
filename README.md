@@ -9,6 +9,8 @@ track of, document what's keeping you awake and you're lugging around in your he
 
 It's simple and it works, feel free to clone and deploy on _Heroku_.
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kiasaki/marks)
+
 ## Technologies
 
 This app is the most simple and vanilla Goland app, no fancy framework, libs

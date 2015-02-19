@@ -1,0 +1,20 @@
+{
+  "name": "Marks",
+  "description": "A personal notebook/wiki app!",
+  "repository": "https://github.com/kiasaki/marks",
+  "logo": "https://pbs.twimg.com/media/Bo7fvKJIMAA0moL.png:large",
+  "keywords": ["go", "golang", "postgresql", "notes", "notebook", "simple"],
+  "success_url": "/",
+  "env": {
+    "BUILDPACK_URL": "https://github.com/kr/heroku-buildpack-go.git",
+    "AUTH_USER": {
+      "description": "The basic auth username to protect your notes (optionnal)",
+      "value": ""
+    },
+    "AUTH_PASS": {
+      "description": "The basic auth password to protect your notes (optionnal)",
+      "value": ""
+    }
+  },
+  "addons": ["heroku-postgresql"]
+}
