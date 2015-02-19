@@ -1,5 +1,3 @@
-public/app.js
-public/app.css
-node_modules/
-config.json
+Godeps/_workspace
+Godeps/Readme
 npm-debug.log

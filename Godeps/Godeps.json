@@ -1,0 +1,32 @@
+{
+	"ImportPath": "github.com/kiasaki/marks",
+	"GoVersion": "go1.4.1",
+	"Deps": [
+		{
+			"ImportPath": "github.com/kiasaki/batbelt/http/middlewares",
+			"Rev": "e3bb5d118431be69d94e7c4340b812381a5e7dc3"
+		},
+		{
+			"ImportPath": "github.com/kiasaki/batbelt/http/mm",
+			"Rev": "e3bb5d118431be69d94e7c4340b812381a5e7dc3"
+		},
+		{
+			"ImportPath": "github.com/kiasaki/batbelt/mst",
+			"Rev": "e3bb5d118431be69d94e7c4340b812381a5e7dc3"
+		},
+		{
+			"ImportPath": "github.com/lib/pq",
+			"Comment": "go1.0-cutoff-23-g835d5eb",
+			"Rev": "835d5eb08da4541f26181e6958d7400da769e44b"
+		},
+		{
+			"ImportPath": "github.com/russross/blackfriday",
+			"Comment": "v1.2-42-g77efab5",
+			"Rev": "77efab57b2f74dd3f9051c79752b2e8995c8b789"
+		},
+		{
+			"ImportPath": "github.com/shurcooL/sanitized_anchor_name",
+			"Rev": "9a8b7d4e8f347bfa230879db9d7d4e4d9e19f962"
+		}
+	]
+}
