@@ -5,6 +5,9 @@
   "logo": "https://pbs.twimg.com/media/Bo7fvKJIMAA0moL.png:large",
   "keywords": ["go", "golang", "postgresql", "notes", "notebook", "simple"],
   "success_url": "/",
+  "scripts": {
+    "postdeploy": "marks -create-db -postgres-url=$DATABASE_URL"
+  },
   "env": {
     "BUILDPACK_URL": "https://github.com/kr/heroku-buildpack-go.git",
     "AUTH_USER": {
